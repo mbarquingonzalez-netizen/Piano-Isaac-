@@ -1,0 +1,239 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta http-equiv="content-type" content="text/html; charset=utf-8"/>
+	<title></title>
+	<meta name="generator" content="LibreOffice 7.4.7.2 (Linux)"/>
+	<meta name="created" content="2025-11-02T22:00:41.431856227"/>
+	<meta name="changed" content="2025-11-02T22:02:22.023250701"/>
+	<style type="text/css">
+		@page { size: 21cm 29.7cm; margin: 2cm }
+		p { line-height: 115%; margin-bottom: 0.25cm; background: transparent }
+		a:link { color: #000080; text-decoration: underline }
+		a:visited { color: #800000; text-decoration: underline }
+	</style>
+</head>
+<body lang="es-ES" link="#000080" vlink="#800000" dir="ltr"><p style="line-height: 100%; margin-bottom: 0cm">
+import React, { useState, useEffect } from &quot;react&quot;;</p>
+<p style="line-height: 100%; margin-bottom: 0cm">import { View, Text,
+TouchableOpacity, StyleSheet, ScrollView } from &quot;react-native&quot;;</p>
+<p style="line-height: 100%; margin-bottom: 0cm">import { Audio }
+from &quot;expo-av&quot;;</p>
+<p style="line-height: 100%; margin-bottom: 0cm"><br/>
+
+</p>
+<p style="line-height: 100%; margin-bottom: 0cm">const notes = [</p>
+<p style="line-height: 100%; margin-bottom: 0cm">  { note: &quot;C4&quot;,
+label: &quot;C&quot;, color: &quot;white&quot; },</p>
+<p style="line-height: 100%; margin-bottom: 0cm">  { note: &quot;Cs4&quot;,
+label: &quot;C#&quot;, color: &quot;black&quot;, position: 1 },</p>
+<p style="line-height: 100%; margin-bottom: 0cm">  { note: &quot;D4&quot;,
+label: &quot;D&quot;, color: &quot;white&quot; },</p>
+<p style="line-height: 100%; margin-bottom: 0cm">  { note: &quot;Ds4&quot;,
+label: &quot;D#&quot;, color: &quot;black&quot;, position: 2 },</p>
+<p style="line-height: 100%; margin-bottom: 0cm">  { note: &quot;E4&quot;,
+label: &quot;E&quot;, color: &quot;white&quot; },</p>
+<p style="line-height: 100%; margin-bottom: 0cm">  { note: &quot;F4&quot;,
+label: &quot;F&quot;, color: &quot;white&quot; },</p>
+<p style="line-height: 100%; margin-bottom: 0cm">  { note: &quot;Fs4&quot;,
+label: &quot;F#&quot;, color: &quot;black&quot;, position: 4 },</p>
+<p style="line-height: 100%; margin-bottom: 0cm">  { note: &quot;G4&quot;,
+label: &quot;G&quot;, color: &quot;white&quot; },</p>
+<p style="line-height: 100%; margin-bottom: 0cm">  { note: &quot;Gs4&quot;,
+label: &quot;G#&quot;, color: &quot;black&quot;, position: 5 },</p>
+<p style="line-height: 100%; margin-bottom: 0cm">  { note: &quot;A4&quot;,
+label: &quot;A&quot;, color: &quot;white&quot; },</p>
+<p style="line-height: 100%; margin-bottom: 0cm">  { note: &quot;As4&quot;,
+label: &quot;A#&quot;, color: &quot;black&quot;, position: 6 },</p>
+<p style="line-height: 100%; margin-bottom: 0cm">  { note: &quot;B4&quot;,
+label: &quot;B&quot;, color: &quot;white&quot; },</p>
+<p style="line-height: 100%; margin-bottom: 0cm">];</p>
+<p style="line-height: 100%; margin-bottom: 0cm"><br/>
+
+</p>
+<p style="line-height: 100%; margin-bottom: 0cm">export default
+function App() {</p>
+<p style="line-height: 100%; margin-bottom: 0cm">  const [pressedKey,
+setPressedKey] = useState(null);</p>
+<p style="line-height: 100%; margin-bottom: 0cm"><br/>
+
+</p>
+<p style="line-height: 100%; margin-bottom: 0cm">  async function
+playSound(note) {</p>
+<p style="line-height: 100%; margin-bottom: 0cm">    const
+soundObject = new Audio.Sound();</p>
+<p style="line-height: 100%; margin-bottom: 0cm">    try {</p>
+<p style="line-height: 100%; margin-bottom: 0cm">      const path =
+require(`./assets/sounds/${note}.mp3`);</p>
+<p style="line-height: 100%; margin-bottom: 0cm">      await
+soundObject.loadAsync(path);</p>
+<p style="line-height: 100%; margin-bottom: 0cm">      await
+soundObject.playAsync();</p>
+<p style="line-height: 100%; margin-bottom: 0cm">     
+setPressedKey(note);</p>
+<p style="line-height: 100%; margin-bottom: 0cm">      setTimeout(()
+=&gt; setPressedKey(null), 200);</p>
+<p style="line-height: 100%; margin-bottom: 0cm">    } catch (error)
+{</p>
+<p style="line-height: 100%; margin-bottom: 0cm">     
+console.log(&quot;Error al reproducir sonido:&quot;, error);</p>
+<p style="line-height: 100%; margin-bottom: 0cm">    }</p>
+<p style="line-height: 100%; margin-bottom: 0cm">  }</p>
+<p style="line-height: 100%; margin-bottom: 0cm"><br/>
+
+</p>
+<p style="line-height: 100%; margin-bottom: 0cm">  return (</p>
+<p style="line-height: 100%; margin-bottom: 0cm">    &lt;View
+style={styles.container}&gt;</p>
+<p style="line-height: 100%; margin-bottom: 0cm">      &lt;Text
+style={styles.title}&gt;🎹 Piano App&lt;/Text&gt;</p>
+<p style="line-height: 100%; margin-bottom: 0cm">      &lt;ScrollView</p>
+<p style="line-height: 100%; margin-bottom: 0cm">        horizontal</p>
+<p style="line-height: 100%; margin-bottom: 0cm">       
+showsHorizontalScrollIndicator={false}</p>
+<p style="line-height: 100%; margin-bottom: 0cm">       
+contentContainerStyle={styles.keyboard}</p>
+<p style="line-height: 100%; margin-bottom: 0cm">      &gt;</p>
+<p style="line-height: 100%; margin-bottom: 0cm">        {/* Teclas
+blancas */}</p>
+<p style="line-height: 100%; margin-bottom: 0cm">        {notes</p>
+<p style="line-height: 100%; margin-bottom: 0cm">         
+.filter((n) =&gt; n.color === &quot;white&quot;)</p>
+<p style="line-height: 100%; margin-bottom: 0cm">          .map((n,
+i) =&gt; (</p>
+<p style="line-height: 100%; margin-bottom: 0cm">           
+&lt;TouchableOpacity</p>
+<p style="line-height: 100%; margin-bottom: 0cm">             
+key={n.note}</p>
+<p style="line-height: 100%; margin-bottom: 0cm">             
+onPress={() =&gt; playSound(n.note)}</p>
+<p style="line-height: 100%; margin-bottom: 0cm">             
+style={[</p>
+<p style="line-height: 100%; margin-bottom: 0cm">               
+styles.whiteKey,</p>
+<p style="line-height: 100%; margin-bottom: 0cm">               
+pressedKey === n.note &amp;&amp; { backgroundColor: &quot;#ddd&quot;
+},</p>
+<p style="line-height: 100%; margin-bottom: 0cm">              ]}</p>
+<p style="line-height: 100%; margin-bottom: 0cm">            &gt;</p>
+<p style="line-height: 100%; margin-bottom: 0cm">              &lt;Text
+style={styles.whiteLabel}&gt;{n.label}&lt;/Text&gt;</p>
+<p style="line-height: 100%; margin-bottom: 0cm">           
+&lt;/TouchableOpacity&gt;</p>
+<p style="line-height: 100%; margin-bottom: 0cm">          ))}</p>
+<p style="line-height: 100%; margin-bottom: 0cm"><br/>
+
+</p>
+<p style="line-height: 100%; margin-bottom: 0cm">        {/* Teclas
+negras */}</p>
+<p style="line-height: 100%; margin-bottom: 0cm">        {notes</p>
+<p style="line-height: 100%; margin-bottom: 0cm">         
+.filter((n) =&gt; n.color === &quot;black&quot;)</p>
+<p style="line-height: 100%; margin-bottom: 0cm">          .map((n)
+=&gt; (</p>
+<p style="line-height: 100%; margin-bottom: 0cm">           
+&lt;TouchableOpacity</p>
+<p style="line-height: 100%; margin-bottom: 0cm">             
+key={n.note}</p>
+<p style="line-height: 100%; margin-bottom: 0cm">             
+onPress={() =&gt; playSound(n.note)}</p>
+<p style="line-height: 100%; margin-bottom: 0cm">             
+style={[</p>
+<p style="line-height: 100%; margin-bottom: 0cm">               
+styles.blackKey,</p>
+<p style="line-height: 100%; margin-bottom: 0cm">               
+styles[`pos${n.position}`],</p>
+<p style="line-height: 100%; margin-bottom: 0cm">               
+pressedKey === n.note &amp;&amp; { backgroundColor: &quot;#555&quot;
+},</p>
+<p style="line-height: 100%; margin-bottom: 0cm">              ]}</p>
+<p style="line-height: 100%; margin-bottom: 0cm">            &gt;</p>
+<p style="line-height: 100%; margin-bottom: 0cm">              &lt;Text
+style={styles.blackLabel}&gt;{n.label}&lt;/Text&gt;</p>
+<p style="line-height: 100%; margin-bottom: 0cm">           
+&lt;/TouchableOpacity&gt;</p>
+<p style="line-height: 100%; margin-bottom: 0cm">          ))}</p>
+<p style="line-height: 100%; margin-bottom: 0cm">      &lt;/ScrollView&gt;</p>
+<p style="line-height: 100%; margin-bottom: 0cm">    &lt;/View&gt;</p>
+<p style="line-height: 100%; margin-bottom: 0cm">  );</p>
+<p style="line-height: 100%; margin-bottom: 0cm">}</p>
+<p style="line-height: 100%; margin-bottom: 0cm"><br/>
+
+</p>
+<p style="line-height: 100%; margin-bottom: 0cm">const styles =
+StyleSheet.create({</p>
+<p style="line-height: 100%; margin-bottom: 0cm">  container: {</p>
+<p style="line-height: 100%; margin-bottom: 0cm">    flex: 1,</p>
+<p style="line-height: 100%; margin-bottom: 0cm">    backgroundColor:
+&quot;#111&quot;,</p>
+<p style="line-height: 100%; margin-bottom: 0cm">    alignItems:
+&quot;center&quot;,</p>
+<p style="line-height: 100%; margin-bottom: 0cm">    justifyContent:
+&quot;center&quot;,</p>
+<p style="line-height: 100%; margin-bottom: 0cm">  },</p>
+<p style="line-height: 100%; margin-bottom: 0cm">  title: {</p>
+<p style="line-height: 100%; margin-bottom: 0cm">    color: &quot;#fff&quot;,</p>
+<p style="line-height: 100%; margin-bottom: 0cm">    fontSize: 28,</p>
+<p style="line-height: 100%; margin-bottom: 0cm">    marginBottom:
+20,</p>
+<p style="line-height: 100%; margin-bottom: 0cm">    fontWeight:
+&quot;bold&quot;,</p>
+<p style="line-height: 100%; margin-bottom: 0cm">  },</p>
+<p style="line-height: 100%; margin-bottom: 0cm">  keyboard: {</p>
+<p style="line-height: 100%; margin-bottom: 0cm">    flexDirection:
+&quot;row&quot;,</p>
+<p style="line-height: 100%; margin-bottom: 0cm">    position:
+&quot;relative&quot;,</p>
+<p style="line-height: 100%; margin-bottom: 0cm">  },</p>
+<p style="line-height: 100%; margin-bottom: 0cm">  whiteKey: {</p>
+<p style="line-height: 100%; margin-bottom: 0cm">    width: 60,</p>
+<p style="line-height: 100%; margin-bottom: 0cm">    height: 200,</p>
+<p style="line-height: 100%; margin-bottom: 0cm">    backgroundColor:
+&quot;#fff&quot;,</p>
+<p style="line-height: 100%; margin-bottom: 0cm">    borderWidth: 1,</p>
+<p style="line-height: 100%; margin-bottom: 0cm">    borderColor:
+&quot;#ccc&quot;,</p>
+<p style="line-height: 100%; margin-bottom: 0cm">    justifyContent:
+&quot;flex-end&quot;,</p>
+<p style="line-height: 100%; margin-bottom: 0cm">    alignItems:
+&quot;center&quot;,</p>
+<p style="line-height: 100%; margin-bottom: 0cm">    marginRight: 2,</p>
+<p style="line-height: 100%; margin-bottom: 0cm">  },</p>
+<p style="line-height: 100%; margin-bottom: 0cm">  whiteLabel: {</p>
+<p style="line-height: 100%; margin-bottom: 0cm">    color: &quot;#333&quot;,</p>
+<p style="line-height: 100%; margin-bottom: 0cm">    marginBottom:
+10,</p>
+<p style="line-height: 100%; margin-bottom: 0cm">  },</p>
+<p style="line-height: 100%; margin-bottom: 0cm">  blackKey: {</p>
+<p style="line-height: 100%; margin-bottom: 0cm">    position:
+&quot;absolute&quot;,</p>
+<p style="line-height: 100%; margin-bottom: 0cm">    width: 40,</p>
+<p style="line-height: 100%; margin-bottom: 0cm">    height: 120,</p>
+<p style="line-height: 100%; margin-bottom: 0cm">    backgroundColor:
+&quot;#000&quot;,</p>
+<p style="line-height: 100%; margin-bottom: 0cm">    zIndex: 1,</p>
+<p style="line-height: 100%; margin-bottom: 0cm">    marginLeft: 45,</p>
+<p style="line-height: 100%; margin-bottom: 0cm">    borderRadius: 4,</p>
+<p style="line-height: 100%; margin-bottom: 0cm">    alignItems:
+&quot;center&quot;,</p>
+<p style="line-height: 100%; margin-bottom: 0cm">    justifyContent:
+&quot;flex-end&quot;,</p>
+<p style="line-height: 100%; margin-bottom: 0cm">  },</p>
+<p style="line-height: 100%; margin-bottom: 0cm">  blackLabel: {</p>
+<p style="line-height: 100%; margin-bottom: 0cm">    color: &quot;#fff&quot;,</p>
+<p style="line-height: 100%; margin-bottom: 0cm">    fontSize: 10,</p>
+<p style="line-height: 100%; margin-bottom: 0cm">    marginBottom: 8,</p>
+<p style="line-height: 100%; margin-bottom: 0cm">  },</p>
+<p style="line-height: 100%; margin-bottom: 0cm">  pos1: { left: 40
+},</p>
+<p style="line-height: 100%; margin-bottom: 0cm">  pos2: { left: 100
+},</p>
+<p style="line-height: 100%; margin-bottom: 0cm">  pos4: { left: 220
+},</p>
+<p style="line-height: 100%; margin-bottom: 0cm">  pos5: { left: 280
+},</p>
+<p style="line-height: 100%; margin-bottom: 0cm">  pos6: { left: 340
+},</p>
+<p style="line-height: 100%; margin-bottom: 0cm">});</p>
+</body>
+</html>
